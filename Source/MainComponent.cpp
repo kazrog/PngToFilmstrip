@@ -182,8 +182,11 @@ void MainComponent::proceed()
 
     if (fileToLoad.isDirectory()) {
         DBG("is directory");
-
-        auto result = juce::Array<juce::File>();
+        juce::DirectoryIterator iter(juce::File(fileToLoad), false, "*", juce::File::findFiles);
+        juce::Array<juce::File> result;
+        while (iter.next()) {
+            result.addUsingDefaultSort(iter.getFile());
+        }
 
         if (fileToLoad.findChildFiles(
                 result,
