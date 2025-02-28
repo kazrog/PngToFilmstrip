@@ -2,12 +2,12 @@
 
 This is a fork I've created for my own personal purposes, as I ran into a couple of bugs with the main fork. If the main fork is working for you, just ignore this repo. Thanks!
 
-## Improvements:
+-Shane McFee
+
+## Improvements
 
 * Added Projucer build in addition to existing cmake.
 * Improved file sorting, ensuring images with numeric sequences (IMG_0001.png, IMG_0002.png, etc.) are baked into the filmstrip in the correct order. 
-
--Shane McFee
 
 # PngToFilmstrip
 Application  to convert .png files to filmstrip 
