@@ -1,3 +1,9 @@
+# Kazrog Fork Info
+
+This is a fork I've created for my own personal purposes, as I ran into a couple of bugs with the main fork. If the main fork is working for you, just ignore this repo. Thanks!
+
+-Shane McFee
+
 # PngToFilmstrip
 Application  to convert .png files to filmstrip 
 
