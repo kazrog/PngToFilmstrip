@@ -182,20 +182,60 @@ void MainComponent::proceed()
 
     if (fileToLoad.isDirectory()) {
         DBG("is directory");
-        juce::DirectoryIterator iter(juce::File(fileToLoad), false, "*", juce::File::findFiles);
         juce::Array<juce::File> result;
-        while (iter.next()) {
-            result.addUsingDefaultSort(iter.getFile());
+        
+        // Get all PNG files in the directory
+        fileToLoad.findChildFiles(result, juce::File::findFiles, false, "*.png");
+        
+        // Custom compare function for numeric filenames
+        auto compareNumericFilenames = [](const juce::File& file1, const juce::File& file2) -> int {
+            // Extract the base filenames without extension
+            juce::String name1 = file1.getFileNameWithoutExtension();
+            juce::String name2 = file2.getFileNameWithoutExtension();
+            
+            // Find where the numbers start in each filename
+            int idx1 = name1.length() - 1;
+            while (idx1 >= 0 && juce::CharacterFunctions::isDigit(name1[idx1]))
+                --idx1;
+            
+            int idx2 = name2.length() - 1;
+            while (idx2 >= 0 && juce::CharacterFunctions::isDigit(name2[idx2]))
+                --idx2;
+            
+            // If both filenames have numbers at the end and share the same prefix
+            if (idx1 >= 0 && idx2 >= 0) {
+                juce::String prefix1 = name1.substring(0, idx1 + 1);
+                juce::String prefix2 = name2.substring(0, idx2 + 1);
+                
+                if (prefix1 == prefix2) {
+                    int num1 = name1.substring(idx1 + 1).getIntValue();
+                    int num2 = name2.substring(idx2 + 1).getIntValue();
+                    return num1 - num2;
+                }
+            }
+            
+            // Default to lexicographical comparison
+            return name1.compare(name2);
+        };
+        
+        // Manual bubble sort since JUCE Array might not support custom comparators in older versions
+        for (int i = 0; i < result.size() - 1; ++i) {
+            for (int j = 0; j < result.size() - i - 1; ++j) {
+                if (compareNumericFilenames(result[j], result[j + 1]) > 0) {
+                    result.swap(j, j + 1);
+                }
+            }
         }
-
-        if (fileToLoad.findChildFiles(
-                result,
-                2,
-                false,
-                "*.png")) {
+        
+        // Log the sorted files for debugging
+        DBG("Sorted files order:");
+        for (int i = 0; i < result.size(); ++i) {
+            DBG(result[i].getFileName());
+        }
+        
+        if (result.size() > 0) {
             DBG("contains of the directory: " << result.size());
-            //std::cout<<result.size()<<std::endl;
-
+            
             juce::PNGImageFormat imageFileFormat;
             juce::Array<juce::Image> imageArray{};
             int width = -1;
@@ -210,7 +250,6 @@ void MainComponent::proceed()
 
                 tempImage = juce::ImageFileFormat::loadFrom(file);
 
-                //std::cout<<tempImage.isValid()<<std::endl;
                 if (!tempImage.isValid())
                 {
                     juce::AlertWindow::showMessageBoxAsync(juce::MessageBoxIconType::WarningIcon,
@@ -221,7 +260,7 @@ void MainComponent::proceed()
                 tempWidth = tempImage.getWidth();
                 tempHeight = tempImage.getHeight();
 
-                if (width ==-1)
+                if (width == -1)
                 {
                     width = tempWidth;
                     height = tempHeight;
