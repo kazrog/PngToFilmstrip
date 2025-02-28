@@ -1,6 +1,9 @@
 # Kazrog Fork Info
 
-This is a fork I've created for my own personal purposes, as I ran into a couple of bugs with the main fork. If the main fork is working for you, just ignore this repo. Thanks!
+This is a fork I've created for my own personal purposes, as I ran into a couple of bugs with the latest version as of this writing (2025-02-28). If the main fork is working for you, just ignore this repo. Thanks!
+
+Visit JuqaSolutions' main repo here:
+[Main Repo](https://github.com/JuqaSolutions/PngToFilmstrip/)
 
 -Shane McFee
 
