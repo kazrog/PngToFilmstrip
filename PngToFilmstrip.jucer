@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="XewPPi" name="PngToFilmstrip" projectType="guiapp" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="1.0.0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="1.0.2"
               companyName="Juqa">
   <MAINGROUP id="qmh3W4" name="PngToFilmstrip">
     <GROUP id="{0FDF83A7-3E35-0001-F775-5E8C9316F7E4}" name="Source">

@@ -12,7 +12,7 @@ FetchContent_MakeAvailable(JUCE)
 
 set(PROJECT_NAME "PngToFilmstrip")
 
-project(${PROJECT_NAME} VERSION 1.0.11)
+project(${PROJECT_NAME} VERSION 1.0.2)
 
 ###########################################
 #Enable this to build for Apple Intel based
